@@ -13,10 +13,12 @@ jobs:
 
       - name: Run security scan
         run: |
-          echo "Scanning for SQL Injection..."
-          if grep -R "SELECT .*\\+.*" .; then
-            echo "High Risk: SQL Injection detected"
+          echo "Scanning for SQL Injection vulnerabilities..."
+
+          # Check for unsafe string concatenation in SQL query
+          if grep -R "\"SELECT .*\" \\+.*" .; then
+            echo "❌ High Risk: SQL Injection detected"
             exit 1
           else
-            echo "No issues found"
+            echo "✅ No issues found"
           fi

@@ -1,0 +1,22 @@
+name: PR Security Scan
+
+on:
+  pull_request:
+
+jobs:
+  security-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run security scan
+        run: |
+          echo "Scanning for SQL Injection..."
+          if grep -R "SELECT .*\\+.*" .; then
+            echo "High Risk: SQL Injection detected"
+            exit 1
+          else
+            echo "No issues found"
+          fi

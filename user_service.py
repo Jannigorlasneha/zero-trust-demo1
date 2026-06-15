@@ -1,6 +1,2 @@
-username = "admin"
-
-query = "SELECT * FROM users WHERE name = '" + username + "'"
-
-print("Executing query:", query)
-# test change
+query = "SELECT * FROM users WHERE name = %s"
+cursor.execute(query, (username,))
